@@ -1,4 +1,28 @@
+# 배송 시간 예측 워크샵
+이 워크샵은 아래와 같은 모회사의 배송 예측에 대한 정보 입니다. "Kaggle의 Brazilian E-Commerce Public Dataset by Olist" 를 가지고 이 문제를 풀어 보겠습니다.
+
+![naver_delivery_prediction](img/naver_delivery_prediction.png)
+
+## 데이터 정보
+- Brazilian E-Commerce Public Dataset by Olist
+    - https://www.kaggle.com/olistbr/brazilian-ecommerce
+
+## 문제 접근 방법
+- 데이터가 여러개 항목의 CSV 로 구성 되어 있습니다.
+- CSV에서 주문 확정 시간, 배송 도착 시간의 차이를 계산하여 레이블 데이터를 계산 합니다. 
+    - 이 배송시간을 5개의 구간으로 나누어서 분류 문제로 만듧니다.
+- CSV에 위의 레이블을 예측하기 위한 데이터 컬럼 값들을 조인 및 추출 합니다.
+- 추출된 데이터 컬럼 값을 탐색하여, 어떤 컬럼 값이 레이블의 영향을 주는지를 확인 합니다.
+- 피쳐 엔지니어링을 통하여, 새로운 피쳐를 생성 합니다.
+- 최종 피쳐를 통하여 아래 세가지 알고리즘을 갖고 훈련 및 모델 평가를 합니다.
+    - CatBoost
+    - XGBoost
+    - Amazon AutoGluon
+
+
 ## 피쳐 엔지니얼링 및 알고리즘 평가 
+아래는 피쳐 엔지니어링의 및 세가지의 알고리즘 적용 효과를 요약 했습니다. 가장 하단 부터 보시면 시간 순의 실험한 것들을 볼 수 있고, 가장 최상단은 마지막 실험 결과를 의미 합니다.
+
 
 ### AutoGluon with target encoding with Smoothing, product_id/classes의 mean_smoothed, error_smoothed 피쳐 추가
 ```
@@ -42,7 +66,7 @@ f1_score: 0.95%
 
 
 
-### CatBoost with date features (Month, Day, WeekOfDay)
+### CatBoost with new features (Month, Day, WeekOfDay)
 ```
 accuracy: 0.46%
 f1_score: 0.44%
@@ -51,7 +75,7 @@ f1_score: 0.44%
 
 
 
-### CatBoost with date features, customer_seller_state, custom_seller_city, custom_seller_zipcode
+### CatBoost with new features, customer_seller_state, custom_seller_city, custom_seller_zipcode
 ```
 accuracy: 0.39%
 f1_score: 0.32%
@@ -60,14 +84,14 @@ f1_score: 0.32%
 ![catboost-target-en-fe-imp](img/catboost-target-en-fe-imp..png)
 
 
-### AutoGluon with date features, customer_seller_state, custom_seller_city, custom_seller_zipcode
+### AutoGluon with new features, customer_seller_state, custom_seller_city, custom_seller_zipcode
 ```
 accuracy: 0.40%
 f1_score: 0.29%
 ```
 ![autogluon-all-cate](img/autogluon-all-cate.png)
 
-### XGBoost with date features, customer_seller_state, custom_seller_city, custom_seller_zipcode
+### XGBoost with new features, customer_seller_state, custom_seller_city, custom_seller_zipcode
 ```
 accuracy: 0.39%
 f1_score: 0.34%
@@ -76,7 +100,7 @@ f1_score: 0.34%
 
 
 
-### AutoGluon with date feature, customer_seller_state
+### AutoGluon with new feature, customer_seller_state
     - cate_cols = ['customer_state','product_category_name_english','seller_state',customer_seller_state]
 ```
 accuracy: 0.37%
@@ -85,7 +109,7 @@ f1_score: 0.30%
 ![alutogluon-4-cate](img/alutogluon-4-cate.png)
 
 
-### CatBoost with date feature, customer_seller_state
+### CatBoost with new feature, customer_seller_state
     - cate_cols = ['customer_state','product_category_name_english','seller_state',customer_seller_state]
 ```
 accuracy: 0.39%
@@ -94,7 +118,7 @@ f1_score: 0.28%
 
 
 
-### XGBoost with date feature, customer_seller_state
+### XGBoost with new feature, customer_seller_state
     - cate_cols = ['customer_state','product_category_name_english','seller_state',customer_seller_state]
 ```
 accuracy: 0.38%
@@ -148,9 +172,6 @@ f1_score: 0.31%
 
 # Reference:
 
-- Brazilian E-Commerce Public Dataset by Olist
-    - 워크샵 사용 데이터
-    - https://www.kaggle.com/olistbr/brazilian-ecommerce
 - AutoGluon Tabular Prediction
     - 오토글루온 Tabular 공식 페이지
     - https://autogluon.mxnet.io/stable/tutorials/tabular_prediction/index.html
