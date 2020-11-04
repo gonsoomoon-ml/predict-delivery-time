@@ -6,6 +6,7 @@
 ## 데이터 정보
 - Brazilian E-Commerce Public Dataset by Olist
     - https://www.kaggle.com/olistbr/brazilian-ecommerce
+    - ![dataset_banner](brazil_ecommerce/img/dataset_banner.png)
 
 ## 문제 접근 방법
 - 데이터가 여러개 항목의 CSV 로 구성 되어 있습니다.
@@ -63,6 +64,24 @@ f1_score: 0.95%
 
 
 ![catboost-target-en-feimp](brazil_ecommerce/img/catboost-target-en-fe-imp.png)
+
+
+### AutoGluon with new features, product_id
+```
+accuracy: 0.48%
+f1_score: 0.45%
+```
+![autogluon-product-id](brazil_ecommerce/img/autogluon-product-id.png)
+
+
+
+### CatBoost with new features, product_id
+```
+accuracy: 0.46%
+f1_score: 0.43%
+```
+![catboost-product-id.png](brazil_ecommerce/img/catboost-product-id.png)
+
 
 
 
