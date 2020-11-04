@@ -1,23 +1,36 @@
 # 배송 시간 예측 워크샵
 이 워크샵은 아래와 같은 모회사의 배송 예측에 대한 정보 입니다. "Kaggle의 Brazilian E-Commerce Public Dataset by Olist" 를 가지고 이 문제를 풀어 보겠습니다.
 
-![naver_delivery_prediction](img/naver_delivery_prediction.png)
+![naver_delivery_prediction](brazil_ecommerce/img/naver_delivery_prediction.png)
 
 ## 데이터 정보
 - Brazilian E-Commerce Public Dataset by Olist
     - https://www.kaggle.com/olistbr/brazilian-ecommerce
+    - ![dataset_banner](brazil_ecommerce/img/dataset_banner.png)
 
 ## 문제 접근 방법
-- 데이터가 여러개 항목의 CSV 로 구성 되어 있습니다.
-- CSV에서 주문 확정 시간, 배송 도착 시간의 차이를 계산하여 레이블 데이터를 계산 합니다. 
+데이터가 여러개 항목의 CSV 로 구성 되어 있습니다.
+- (0) 레이블 생성
+    - CSV 파일에서 주문 확정 시간, 배송 도착 시간의 차이를 계산하여 배송 시간을 계산 합니다. 
     - 이 배송시간을 5개의 구간으로 나누어서 분류 문제로 만듧니다.
-- CSV에 위의 레이블을 예측하기 위한 데이터 컬럼 값들을 조인 및 추출 합니다.
-- 추출된 데이터 컬럼 값을 탐색하여, 어떤 컬럼 값이 레이블의 영향을 주는지를 확인 합니다.
-- 피쳐 엔지니어링을 통하여, 새로운 피쳐를 생성 합니다.
-- 최종 피쳐를 통하여 아래 세가지 알고리즘을 갖고 훈련 및 모델 평가를 합니다.
-    - CatBoost
-    - XGBoost
-    - Amazon AutoGluon
+        - 0: 0 - 2일 (00:00:00 - 2일 23:59:59)
+        - 1: 2 - 5일 (3일 - 5일 23:59:59) 
+        - 2: 5 - 8일 (6일 - 8일 23:59:59)     
+        - 3: 8 - 11일 (9일 - 11일 23:59:59)         
+        - 4: 11 - 14일 (12일 - 14일 23:59:59)                 
+- (1) 데이타 추출 및 준비    
+    - 여러개의 CSV 파일에서 위의 레이블을 예측하기 위한 데이터 컬럼 값들을 조인 및 추출 합니다.
+- (2) 데이터 탐색    
+    - 추출된 데이터 컬럼 값을 탐색하여, 어떤 컬럼 값이 레이블의 영향을 주는지를 확인 합니다.
+- (3) 피쳐 엔지니어링    
+    - 피쳐 엔지니어링을 통하여, 새로운 피쳐를 생성 합니다.
+- (4) 모델 빌딩, 훈련 및 평가    
+    - 최종 피쳐를 통하여 아래 세가지 알고리즘을 갖고 훈련 및 모델 평가를 합니다.
+        - CatBoost
+        - XGBoost
+        - Amazon AutoGluon
+    - 위의 3개의 알고리즘이 제공하는 '피쳐 중요도' 를 보고 어떤 피쳐가 추론시 중요하게 영향을 미치었는지를 확인 합니다.
+- **(5) 위의 (1)~(4) 까지를 원하는 모델 성능(에: Accuracy)이 나올때 까지 계속 반복 합니다.**        
 
 
 ## 피쳐 엔지니얼링 및 알고리즘 평가 
@@ -29,11 +42,11 @@
 accuracy: 0.92%
 f1_score: 0.92%
 ```
-![autogluon-target-en-smooth-conf](img/autogluon-target-en-smooth-conf.png)
+![autogluon-target-en-smooth-conf](brazil_ecommerce/img/autogluon-target-en-smooth-conf.png)
 
-![autogluon-target-en-smooth-fe-imp](img/autogluon-target-en-smooth-fe-imp.png)
+![autogluon-target-en-smooth-fe-imp](brazil_ecommerce/img/autogluon-target-en-smooth-fe-imp.png)
 
-![autogluon-target-en-smooth-leaderboard](img/autogluon-target-en-smooth-leaderboard.png)
+![autogluon-target-en-smooth-leaderboard](brazil_ecommerce/img/autogluon-target-en-smooth-leaderboard.png)
 
 
 ### XGBoost with target encoding with Smoothing, product_id/classes의 mean_smoothed, error_smoothed 피쳐 추가
@@ -41,7 +54,7 @@ f1_score: 0.92%
 accuracy: 0.77%
 f1_score: 0.77%
 ```
-![xgboost-target-en-smooth.png](img/xgboost-target-en-smooth.png)
+![xgboost-target-en-smooth.png](brazil_ecommerce/img/xgboost-target-en-smooth.png)
 
 
 
@@ -50,7 +63,7 @@ f1_score: 0.77%
 accuracy: 0.90%
 f1_score: 0.89%
 ```
-![catboost-target-en-smoothe-w20](img/catboost-target-en-smoothe-w20.png)
+![catboost-target-en-smoothe-w20](brazil_ecommerce/img/catboost-target-en-smoothe-w20.png)
 
 
 
@@ -59,10 +72,28 @@ f1_score: 0.89%
 accuracy: 0.95%
 f1_score: 0.95%
 ```
-![catboost-target-enconf](img/catboost-target-en-conf.png)
+![catboost-target-enconf](brazil_ecommerce/img/catboost-target-en-conf.png)
 
 
-![catboost-target-en-feimp](img/catboost-target-en-fe-imp.png)
+![catboost-target-en-feimp](brazil_ecommerce/img/catboost-target-en-fe-imp.png)
+
+
+### AutoGluon with new features, product_id
+```
+accuracy: 0.48%
+f1_score: 0.45%
+```
+![autogluon-product-id](brazil_ecommerce/img/autogluon-product-id.png)
+
+
+
+### CatBoost with new features, product_id
+```
+accuracy: 0.46%
+f1_score: 0.43%
+```
+![catboost-product-id.png](brazil_ecommerce/img/catboost-product-id.png)
+
 
 
 
@@ -71,7 +102,7 @@ f1_score: 0.95%
 accuracy: 0.46%
 f1_score: 0.44%
 ```
-![catboost-date-feature](img/catboost-date-feature.png)
+![catboost-date-feature](brazil_ecommerce/img/catboost-date-feature.png)
 
 
 
@@ -80,8 +111,8 @@ f1_score: 0.44%
 accuracy: 0.39%
 f1_score: 0.32%
 ```
-![catboost-all-cate](img/catboost-all-cate.png)
-![catboost-target-en-fe-imp](img/catboost-target-en-fe-imp..png)
+![catboost-all-cate](brazil_ecommerce/img/catboost-all-cate.png)
+![catboost-target-en-fe-imp](brazil_ecommerce/img/catboost-target-en-fe-imp..png)
 
 
 ### AutoGluon with new features, customer_seller_state, custom_seller_city, custom_seller_zipcode
@@ -89,7 +120,7 @@ f1_score: 0.32%
 accuracy: 0.40%
 f1_score: 0.29%
 ```
-![autogluon-all-cate](img/autogluon-all-cate.png)
+![autogluon-all-cate](brazil_ecommerce/img/autogluon-all-cate.png)
 
 ### XGBoost with new features, customer_seller_state, custom_seller_city, custom_seller_zipcode
 ```
@@ -106,7 +137,7 @@ f1_score: 0.34%
 accuracy: 0.37%
 f1_score: 0.30%
 ```
-![alutogluon-4-cate](img/alutogluon-4-cate.png)
+![alutogluon-4-cate](brazil_ecommerce/img/alutogluon-4-cate.png)
 
 
 ### CatBoost with new feature, customer_seller_state
@@ -124,7 +155,7 @@ f1_score: 0.28%
 accuracy: 0.38%
 f1_score: 0.31%
 ```
-![xgboost-4-cate](img/xgboost-4-cate.png)
+![xgboost-4-cate](brazil_ecommerce/img/xgboost-4-cate.png)
 
 
 
@@ -137,7 +168,7 @@ f1_score: 0.31%
 accuracy: 0.38%
 f1_score: 0.31%
 ```
-![xgboost-4-coate](img/catboost-3-cate.png)
+![xgboost-4-coate](brazil_ecommerce/img/catboost-3-cate.png)
 
 
 ### AutoGluon with medium_quality_faster_train
@@ -149,7 +180,7 @@ f1_score: 0.31%
 accuracy: 0.38%
 f1_score: 0.27%
 ```
-![autogluon-medium-quality-3-cate](img/autogluon-medium-quality-3-cate.png)
+![autogluon-medium-quality-3-cate](brazil_ecommerce/img/autogluon-medium-quality-3-cate.png)
 
 ### XGBoost with Label-Encoding: 
     - cate_cols = ['customer_state','product_category_name_english','seller_state']
@@ -159,7 +190,7 @@ f1_score: 0.27%
 accuracy: 0.37%
 f1_score: 0.29%
 ```
-![xgboost-label-en-3-cate](img/xgboost-label-en-3-cate.png)
+![xgboost-label-en-3-cate](brazil_ecommerce/img/xgboost-label-en-3-cate.png)
 
 ### XGBoost with One-Hot-Encoding: 
     - cate_cols = ['customer_state','product_category_name_english','seller_state']
