@@ -31,6 +31,19 @@
 - **(5) 위의 (1)~(4) 까지를 원하는 모델 성능(에: Accuracy)이 나올때 까지 계속 반복 합니다.**        
 
 
+## 노트북 설명
+- 0.1.Install_Package.ipynb
+    - 필요한 Python Package를 설치 합니다.(AutoGluon 등)
+- 1.0.Show_Raw_Data.ipynb
+    - Kaggle에서 제공한 Raw 데이터를 확인 합니다.
+- 1.1.Prepare_Data.ipynb
+    - 여러개의 데이터 CSV 파일에서 필요한 컬럼만을 조인 및 추출 합니다.
+- 1.2.Explore_Data.ipynb
+    - 데이터 탐색을 합니다.
+- 1.6.Feature_Engineer.ipynb
+    - 피쳐를 생성 합니다.
+- 1.7.AutoGluon.ipynb
+    - AutoGluon을 실행 합니다.
 
 # Reference:
 
