@@ -32,18 +32,30 @@
 
 
 ## 노트북 설명
-- 0.1.Install_Package.ipynb
+- [필수] 0.1.Install_Package.ipynb
     - 필요한 Python Package를 설치 합니다.(AutoGluon 등)
-- 1.0.Show_Raw_Data.ipynb
+- [옵션] 1.0.Show_Raw_Data.ipynb
     - Kaggle에서 제공한 Raw 데이터를 확인 합니다.
-- 1.1.Prepare_Data.ipynb
+- [필수] 1.1.Prepare_Data.ipynb
     - 여러개의 데이터 CSV 파일에서 필요한 컬럼만을 조인 및 추출 합니다.
-- 1.2.Explore_Data.ipynb
+- [옵션] 1.2.Explore_Data.ipynb
     - 데이터 탐색을 합니다.
-- 1.6.Feature_Engineer.ipynb
+- [필수] 1.6.Feature_Engineer.ipynb
     - 피쳐를 생성 합니다.
-- 1.7.AutoGluon.ipynb
+- [필수] 1.7.AutoGluon.ipynb
     - AutoGluon을 실행 합니다.
+- [옵션] 2.1.Adv-Feature_Engineer.ipynb
+    - 타겟 인코딩을 이용하여 피쳐를 생성 합니다.
+- [옵션] 2.2.AutoGluon-FE.ipynb    
+    - 타겟 인코딩으로 생성한 피쳐를 이용하여 AutoGluon으로 훈련 및 평가
+- [옵션] 2.3.XGBoost.ipynb    
+    - 타겟 인코딩으로 생성한 피쳐를 이용하여 XGBoost로 훈련 및 평가
+- [옵션] 2.4.SM_XGBoost.ipynb
+    - 타겟 인코딩으로 생성한 피쳐를 이용하여 SageMaker 내장 알고리즘인 XGBoost로 훈련 및 평가
+- [옵션] 2.5.CatBoost.ipynb
+    - 타겟 인코딩으로 생성한 피쳐를 이용하여 CatBoost로 훈련 및 평가    
+
+    
 
 # Reference:
 
