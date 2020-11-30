@@ -40,9 +40,11 @@
     - 여러개의 데이터 CSV 파일에서 필요한 컬럼만을 조인 및 추출 합니다.
 - [옵션] 1.2.Explore_Data.ipynb
     - 데이터 탐색을 합니다.
-- **[필수]** 1.6.Feature_Engineer.ipynb
+- [필수] 1.6.Feature_Engineer.ipynb
     - 피쳐를 생성 합니다.
-- **[필수]** 2.1.AutoGluon-MKP.ipynb
+- **[필수]** 1.7.AutoGluon.ipynb    
+    - AutoGluon Python Package로 훈련, 평가, 추론
+- [옵션] 2.1.AutoGluon-MKP.ipynb
     - AutoGluon을 마켓플레이스에서 다운로드 받아 실행 합니다.
 - [옵션] 2.2.AutoGluon-BYOC.ipynb
     - AutoGluon을 Bring Your Own Container(BYOC)로 실행합니다.    
