@@ -46,7 +46,9 @@
     - AutoGluon Python Package로 훈련, 평가, 추론
 - [옵션] 2.1.AutoGluon-MKP.ipynb
     - AutoGluon을 마켓플레이스에서 다운로드 받아 실행 합니다.
-- [옵션] 2.2.AutoGluon-BYOC.ipynb
+- [옵션] 2.2.AutoGluon-MKP-Prob.ipynb    
+    - 위의 2.1 버전은 클래스의 분류 값(에: 0, 1) 을 제공하지만, 여기서는 확률값을 제공함.
+- [옵션] 2.5.AutoGluon-BYOC.ipynb
     - AutoGluon을 Bring Your Own Container(BYOC)로 실행합니다.    
 - [옵션] 3.1.Adv-Feature_Engineer.ipynb
     - 타겟 인코딩을 이용하여 피쳐를 생성 합니다.
